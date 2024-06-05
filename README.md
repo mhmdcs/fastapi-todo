@@ -32,7 +32,6 @@ Create .env file in the project's root directory with the following keys and val
 
 ```
 DATABASE_HOSTNAME=localhost // database host name
-
 DATABASE_PORT=5432 // database host port
 
 DATABASE_PASSWORD=password // database host port
