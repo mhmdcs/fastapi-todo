@@ -85,7 +85,7 @@ def update_task_status(id: int, status: schemas.TaskStatus, db: Session = Depend
     task_query.update({'done': status.done}, synchronize_session=False)
     db.commit()
 
-    message = "task marked as done" if status else "task marked as undone"
+    message = "task marked as done" if status.done else "task marked as undone"
     
     return {"status": message}
 
