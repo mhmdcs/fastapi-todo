@@ -1,4 +1,4 @@
-## Starting out
+## Starting out!
 Make sure you have Python3 installed on your system.
 All the following commands must be executed inside our project's root directory.
 
@@ -36,3 +36,8 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30 // set jwt acccess token lifetime to 30 mins
 ## Not required but recommended:
 
 Download and install Postman to test the backend's endpoints, you can also test with `curl`, or use http://localhost:port/docs or http://localhost:port/redoc that FastAPI already provides.
+
+
+## Last but not least..
+
+Run `uvicorn app.main:app --reload` to see the magic in action :)

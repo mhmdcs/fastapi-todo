@@ -13,8 +13,13 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     hashed_password = utils.hash(user.password)
     user.password = hashed_password
 
+    user_exists = db.query(models.User).filter(models.User.email == user.email, models.User.username == user.username).first()
+
+    if user_exists:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"User with these credentials already exists")
+
     new_user = models.User(**user.dict())
-    db.add(new_user) # do logic to handle error when user attempts to sign up with an already existing email
+    db.add(new_user)
     db.commit()
     db.refresh(new_user)
     return new_user

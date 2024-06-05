@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from . import models
 from .database import engine
-from .routers import task, user, auth, vote
+from .routers import task, user, auth
 
 models.Base.metadata.create_all(bind=engine)
 
