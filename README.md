@@ -13,6 +13,7 @@ Run bash script `source venv/bin/activate` so that when you use `pip install` to
 Once you activate the project's virtual environment, youl'll need to `pip install` the following:
 
 `pip install fastapi`
+
 `pip install psycopg2-binary`
 `pip install sqlalchemy`
 `pip install 'passlib[bcrypt]'`
