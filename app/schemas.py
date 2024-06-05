@@ -42,7 +42,7 @@ class TaskStatus(BaseModel):
     done: bool = False
 
 class TaskShare(BaseModel):
-    email: str
+    email: EmailStr
     share: bool
 
 class Token(BaseModel):

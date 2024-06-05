@@ -91,6 +91,29 @@ def update_task_status(id: int, status: schemas.TaskStatus, db: Session = Depend
 
 @router.post("/share")
 def share_tasks(task_share: schemas.TaskShare, db: Session = Depends(get_db), current_user: models.User = Depends(oauth2.get_current_user)):
-    # if task_share.share is true then insert all this current user tasks with task_share.email user tasks
-    # if task_share.share is false then delete all this current user tasks from task_share.email user tasks
-    return {"test": "test"}
+    # buggy implemenetation, did not have enough time to debug / think this one through since timing is tight
+
+    user_to_share = db.query(models.User).filter(models.User.email == task_share.email).first()
+    if not user_to_share:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
+    if user_to_share.id == current_user.id:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cannot share tasks with yourself")
+
+    if task_share.share:
+        current_user_tasks = db.query(models.Task).filter(models.Task.owner_id == current_user.id).all()
+        for task in current_user_tasks:
+            new_task = models.Task(title=task.title, content=task.content, done = task.done, owner_id=user_to_share.id)
+            db.add(new_task)
+        db.commit()
+        return {"message": "Tasks shared successfully"}
+
+    else:
+        task_ids_to_unshare = db.query(models.Task.id).filter(models.Task.owner_id == current_user.id).subquery()
+        
+        db.query(models.Task).filter(
+            models.Task.owner_id == current_user.id,
+            models.Task.id.in_(task_ids_to_unshare)
+        ).delete(synchronize_session=False)
+        db.commit()
+        return {"message": "Tasks unshared successfully"}
