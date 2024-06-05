@@ -69,3 +69,28 @@ def update_task(id: int, task: schemas.TaskCreate, db: Session = Depends(get_db)
     db.commit()
 
     return task_query.first()
+
+@router.patch("/{id}", status_code=status.HTTP_200_OK)
+def update_task_status(id: int, status: schemas.TaskStatus, db: Session = Depends(get_db), current_user: models.User = Depends(oauth2.get_current_user)):
+    task_query = db.query(models.Task).filter(models.Task.id==id)
+    
+    updated_task = task_query.first()
+
+    if updated_task == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"task with id {id} does not exist")
+    
+    if current_user.id != updated_task.owner_id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to perform request action")
+    
+    task_query.update({'done': status.done}, synchronize_session=False)
+    db.commit()
+
+    message = "task marked as done" if status else "task marked as undone"
+    
+    return {"status": message}
+
+@router.post("/share")
+def share_tasks(task_share: schemas.TaskShare, db: Session = Depends(get_db), current_user: models.User = Depends(oauth2.get_current_user)):
+    # if task_share.share is true then insert all this current user tasks with task_share.email user tasks
+    # if task_share.share is false then delete all this current user tasks from task_share.email user tasks
+    return {"test": "test"}

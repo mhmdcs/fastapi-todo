@@ -38,6 +38,13 @@ class TaskResponse(TaskBase):
     class Config:
         orm_mode = True
 
+class TaskStatus(BaseModel):
+    done: bool = False
+
+class TaskShare(BaseModel):
+    email: str
+    share: bool
+
 class Token(BaseModel):
     access_token: str
     token_type: str
