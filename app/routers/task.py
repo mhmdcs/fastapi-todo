@@ -91,7 +91,7 @@ def update_task_status(id: int, status: schemas.TaskStatus, db: Session = Depend
 
 @router.post("/share")
 def share_tasks(task_share: schemas.TaskShare, db: Session = Depends(get_db), current_user: models.User = Depends(oauth2.get_current_user)):
-    # buggy implemenetation, did not have enough time to debug / think this one through since timing is tight
+    # buggy implemenetation, did not have enough time to debug / think this one through since time is tight
 
     user_to_share = db.query(models.User).filter(models.User.email == task_share.email).first()
     if not user_to_share:
