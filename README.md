@@ -33,17 +33,11 @@ Create .env file in the project's root directory with the following keys and val
 ```
 DATABASE_HOSTNAME=localhost // database host name
 DATABASE_PORT=5432 // database host port
-
 DATABASE_PASSWORD=password // database host port
-
 DATABASE_NAME=fastapi-todo // database name
-
 DATABASE_USERNAME=postgres // database password
-
 SECRET_KEY=any random number  // run `openssl rand -hex 32` to generate a long random key for jwt signing
-
 ALGORITHM=HS256 // we'll use HMAC SHA256
-
 ACCESS_TOKEN_EXPIRE_MINUTES=30 // set jwt acccess token lifetime to 30 mins
 ```
 
