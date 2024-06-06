@@ -10,8 +10,8 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 # run `openssl rand -hex 32` to gen a long random key
 SECRET_KEY = settings.secret_key
-ALGORITHM = settings.algorithm
-ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
+ALGORITHM = "HS256" # HMAC SHA256
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 def create_access_token(payload: dict):
     plain_payload = payload.copy()
