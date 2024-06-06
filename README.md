@@ -26,6 +26,8 @@ Once you activate the project's virtual environment, youl'll need to `pip instal
 
 Run `pip freeze` to check that all the aforementioned packages were installed.
 
+Or, simply just run `pip install -r requirements.txt` and it'll install all the needed packages for you.
+
 Download and install PostgreSQL, host a database on localhost and connect to it by providing its credentials in the project.
 
 Create .env file in the project's root directory with the following keys and values according to database configurations:
