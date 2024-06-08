@@ -35,13 +35,6 @@ def client(session):
     app.dependency_overrides[get_db] = override_get_db
     yield TestClient(app)
 
-# creating and dropping db tables via alembic instead of sqlalchemy:
-# @pytest.fixture
-# def client():
-#     command.upgrade("head")
-#     yield TestClient(app)
-#     command.downgrade("base")
-
 @pytest.fixture
 def test_user2(client):
     user_data = {"email": "test2@test.com", "username": "test2", "password": "test"}
