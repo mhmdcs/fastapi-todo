@@ -3,9 +3,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from .config import settings
 
-SQLALCHEMY_DATABASE_URL = settings.database_connection_string
+DATABASE_CONNECTION_STRING = settings.database_connection_string
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(DATABASE_CONNECTION_STRING)
 
 SessionLocal = sessionmaker(autoflush=False, bind=engine)
 
